@@ -179,10 +179,83 @@ var Game = {
                 ending: true
             },
             villageExplore: {
-                text: "You look around the village. There is a shrine here said to test heroes.",
+                text: "You wander the village square. Shops line the dusty road and neighbors greet each other warmly.",
                 choices: [
                     { text: "Attempt the Shrine Trial", next: "shrineTrial" },
+                    { text: "Visit the blacksmith", next: "blacksmith" },
+                    { text: "Visit the library", next: "library" },
+                    { text: "Relax at the tavern", next: "tavern" },
                     { text: "Leave for forest", next: "forestEntrance" }
+                ]
+            },
+            blacksmith: {
+                text: "The blacksmith, a burly woman named Hilda, wipes sweat from her brow. 'Need a weapon sharpened?' she asks.",
+                choices: [
+                    { text: "Ask about the dragon", next: "blacksmithDragon" },
+                    { text: "Chat about the village", next: "blacksmithVillage" },
+                    { text: "Return to the square", next: "villageExplore" }
+                ]
+            },
+            blacksmithDragon: {
+                text: "Hilda: 'That beast scorched half my forge once. Take this whetstone; it served me well.'",
+                loot: { item: { name: "Fine Whetstone", type: "quest", description: "Improves weapon for a time." } },
+                choices: [
+                    { text: "Thank her", next: "blacksmith" }
+                ]
+            },
+            blacksmithVillage: {
+                text: "Hilda: 'The village may seem quiet, but every blade I make tells a story.'",
+                choices: [
+                    { text: "Back", next: "blacksmith" }
+                ]
+            },
+            library: {
+                text: "You step into a dusty library. The elder scholar Leto peers over ancient tomes.",
+                choices: [
+                    { text: "Study local history", next: "libraryHistory" },
+                    { text: "Ask for spell books", next: "librarySpells" },
+                    { text: "Return to the square", next: "villageExplore" }
+                ]
+            },
+            libraryHistory: {
+                text: "Leto shares tales of a forgotten king whose name was erased. 'Remember, names hold power,' he says.",
+                choices: [
+                    { text: "Reflect on his words", next: "library" }
+                ]
+            },
+            librarySpells: {
+                text: "Leto hands you a scroll. 'Only those with patience can master its contents.'",
+                loot: { item: { name: "Scroll of Sparks", type: "scroll", effect: { magic: 2 } } },
+                choices: [
+                    { text: "Return the scroll", next: "library" }
+                ]
+            },
+            tavern: {
+                text: "The tavern bustles with laughter. A bard strums a lute while villagers trade stories.",
+                choices: [
+                    { text: "Listen to bard", next: "tavernBard" },
+                    { text: "Chat with patrons", next: "tavernPatrons" },
+                    { text: "Return to square", next: "villageExplore" }
+                ]
+            },
+            tavernBard: {
+                text: "The bard sings of heroes who learned from every soul they met. You feel inspired.",
+                choices: [
+                    { text: "Applaud", next: "tavern" }
+                ]
+            },
+            tavernPatrons: {
+                text: "A weary traveler warns you: 'The forest seer favors those who show kindness.'",
+                choices: [
+                    { text: "Buy him a drink", next: "tavernReward" },
+                    { text: "Leave", next: "tavern" }
+                ]
+            },
+            tavernReward: {
+                text: "The traveler smiles and hands you a charm. 'May it guide you.'",
+                loot: { item: { name: "Traveler's Charm", type: "accessory", effect: { defense: 1 } } },
+                choices: [
+                    { text: "Return to the tavern", next: "tavern" }
                 ]
             },
             shrineTrial: {
