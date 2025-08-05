@@ -12,7 +12,7 @@ For GitHub Pages deployment, upload all files in this repository to a public Git
 
 - **index.html** – Main HTML file containing the game interface and layout.
 - **style.css** – CSS stylesheet for game layout and appearance.
-- **script.js** – JavaScript file containing game logic, data, and interactive functionality.
+- **game.js** – JavaScript file containing game logic, data, and interactive functionality.
 - **README.md** – Instructions for deployment and an overview of the project.
 
 

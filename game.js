@@ -190,6 +190,7 @@ var Game = {
             },
             blacksmith: {
                 text: "The blacksmith, a burly woman named Hilda, wipes sweat from her brow. 'Need a weapon sharpened?' she asks.",
+                npc: 'blacksmith',
                 choices: [
                     { text: "Ask about the dragon", next: "blacksmithDragon" },
                     { text: "Chat about the village", next: "blacksmithVillage" },
@@ -328,12 +329,21 @@ var Game = {
                 text: "The Seer sees Aria with you. Seer: 'A Paladin! Perhaps destiny weaves your fates together. The Ancient Sword you seek, Aria, lies in the ruins ahead.'",
                 // If Aria is present, her quest overlaps with main quest in ruins
                 choices: [
-                    { text: "Go to the ruins with Aria", next: "ruinsEntrance" }
+                    { text: "Go to the ruins with Aria", next: "ruinsEntrance" },
+                    { text: "Rest by the campfire", next: "campfireScene" }
+                ]
+            },
+            campfireScene: {
+                text: "That night, you and Aria rest beside a warm campfire.",
+                cutscene: "romantic",
+                choices: [
+                    { text: "Continue to the ruins", next: "ruinsEntrance" }
                 ]
             },
             ruinsEntrance: {
                 ascii: "dungeon",
                 text: "You arrive at the entrance of ancient ruins. The atmosphere is eerie and torchlight flickers on the walls.",
+                risk: 30,
                 // start torch flicker animation here perhaps
                 choices: [
                     { text: "Enter the ruins", next: "ruinsHall" }
@@ -341,6 +351,7 @@ var Game = {
             },
             ruinsHall: {
                 text: "Inside the ruins, it's dark. You see a locked door ahead and a corridor leading another way.",
+                risk: 60,
                 choices: [
                     { text: "Pick the lock", next: "lockPickPuzzle" },
                     { text: "Take the side corridor", next: "sideCorridor" }
@@ -418,6 +429,7 @@ var Game = {
             },
             finalBattle: {
                 text: "The dragon attacks! The final fight is on.",
+                risk: 90,
                 combat: { enemies: ["Dragon"], next: "postFinalBattle" }
             },
             postFinalBattle: {
@@ -428,6 +440,7 @@ var Game = {
             },
             finalConfrontation: {
                 text: "The Dark Lord, who controlled the dragon, appears from the shadows, weakened. 'Impressive... Perhaps we could rule together.'\nHe offers you his hand.",
+                cutscene: "villain",
                 choices: [
                     { text: "Spare him and accept power", next: "ending_evil" },
                     { text: "Strike him down", next: "ending_good" }
@@ -447,16 +460,16 @@ var Game = {
             }
         };
         // Start game at the beginning node
-        Game.startGame();
+        Game.chooseClass();
     },
     // Start or reset game
-    startGame: function() {
+    startGame: function(className) {
         // Clear any existing state
         Game.playerParty = [];
         Game.inventory = [];
         Game.quests = [];
-        // Create main character (player)
-        var player = Game.createCharacter("Warrior", "Hero");
+        // Create main character (player) with chosen class
+        var player = Game.createCharacter(className || "Warrior", "Hero");
         Game.playerParty.push(player);
         // Give starting gear: a basic sword and armor
         var starterSword = { name: "Rusty Sword", type: "weapon", attack: 5 };
@@ -466,6 +479,25 @@ var Game = {
         Game.equipItem(player, starterArmor);
         // Start at story beginning
         Game.goToNode("start");
+    },
+    // Present class selection to the player
+    chooseClass: function() {
+        Game.closePanels();
+        updateRiskMeter(0);
+        document.getElementById('combatView').style.display = 'none';
+        document.getElementById('storyView').style.display = 'block';
+        var asciiEl = document.getElementById('asciiArt');
+        asciiEl.textContent = "";
+        var textEl = document.getElementById('textDisplay');
+        textEl.innerText = "Choose your class:";
+        var choicesEl = document.getElementById('choiceButtons');
+        choicesEl.innerHTML = "";
+        Object.keys(Game.classes).forEach(function(cls) {
+            var btn = document.createElement('button');
+            btn.textContent = cls;
+            btn.onclick = function() { Game.startGame(cls); };
+            choicesEl.appendChild(btn);
+        });
     },
     // Utility: create a character object given class template and name
     createCharacter: function(className, charName) {
@@ -666,9 +698,18 @@ var Game = {
         Game.closePanels();
         var node = Game.story[nodeId];
         Game.currentNode = node;
-        // Display ascii art if any
+        // Update risk meter and visuals for this node
+        updateRiskMeter(node.risk || 0);
+        // Display ascii art or trigger cutscenes
         var asciiEl = document.getElementById('asciiArt');
-        if(node.ascii && Game.asciiArts[node.ascii]) {
+        if(node.cutscene) {
+            asciiEl.textContent = "";
+            if(node.cutscene === "villain") {
+                playVillainCutscene();
+            } else if(node.cutscene === "romantic") {
+                playRomanticCutscene();
+            }
+        } else if(node.ascii && Game.asciiArts[node.ascii]) {
             asciiEl.textContent = Game.asciiArts[node.ascii];
         } else {
             asciiEl.textContent = "";
@@ -794,13 +835,17 @@ var Game = {
             Game.knowledge = Game.knowledge || {};
             Game.knowledge[node.knowledge] = true;
         }
+        // Trigger NPC dialogue if defined
+        if(node.npc === 'blacksmith' && typeof blacksmith !== 'undefined') {
+            blacksmith.talk();
+        }
         // If node has ending, end game (could just display text and stop)
         if(node.ending) {
             // Display ending text (already set), and maybe provide option to restart
             document.getElementById('choiceButtons').innerHTML = "";
             var restartBtn = document.createElement('button');
             restartBtn.textContent = "Restart Game";
-            restartBtn.onclick = function(){ Game.startGame(); };
+            restartBtn.onclick = function(){ Game.chooseClass(); };
             document.getElementById('choiceButtons').appendChild(restartBtn);
             return;
         }
@@ -829,6 +874,7 @@ var Game = {
     startCombat: function(enemyTypes, nextNode, failNode) {
         // Setup enemies
         Game.inCombat = true;
+        updateRiskMeter(80);
         Game.enemies = [];
         enemyTypes.forEach(type => {
             Game.enemies.push(Game.createEnemy(type));
@@ -1213,6 +1259,7 @@ var Game = {
         // Resume story after short delay to let player read log
         setTimeout(function() {
             Game.inCombat = false;
+            updateRiskMeter(0);
             Game.goToNode(Game.combatNextNode);
         }, 1000);
     },
@@ -1222,6 +1269,7 @@ var Game = {
         logEl.innerText += "\nYour party has been defeated...";
         // Go to fail node or end game
         Game.inCombat = false;
+        updateRiskMeter(0);
         if(Game.combatFailNode) {
             Game.goToNode(Game.combatFailNode);
         } else {
