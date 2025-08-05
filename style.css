@@ -52,6 +52,12 @@ body {
   padding: 10px 15px;
   font-size: 16px;
 }
+#mapContent {
+  font-family: monospace;
+  font-size: 24px;
+  line-height: 1.2;
+  text-align: center;
+}
 .panel {
   position: fixed;
   top: 0;
