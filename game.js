@@ -8,6 +8,9 @@ var Game = {
     currentNode: null,
     animationInterval: null,   // for ascii animations
     flickerInterval: null,
+    mapQuestStarted: false,
+    map: null,
+    playerLocation: {x:0, y:0},
     // Data: Classes
     classes: {},
     // Data: Skills
@@ -33,6 +36,10 @@ var Game = {
                 baseStats: {maxHP: 80, maxMana: 20, maxStamina: 80, attack: 8, defense: 3, magic: 0},
                 initialSkills: ["Stab"],
             },
+            "Ranger": {
+                baseStats: {maxHP: 70, maxMana: 30, maxStamina: 70, attack: 9, defense: 3, magic: 2},
+                initialSkills: ["Snipe"],
+            },
             "Paladin": {
                 baseStats: {maxHP: 90, maxMana: 50, maxStamina: 30, attack: 9, defense: 5, magic: 5},
                 initialSkills: ["Slash", "Heal"],
@@ -42,6 +49,7 @@ var Game = {
         Game.classes.Warrior.levelUp = {maxHP: 20, maxMana: 0, maxStamina: 10, attack: 3, defense: 2, magic: 0};
         Game.classes.Mage.levelUp    = {maxHP: 10, maxMana: 20, maxStamina: 0, attack: 1, defense: 1, magic: 3};
         Game.classes.Rogue.levelUp   = {maxHP: 15, maxMana: 5, maxStamina: 15, attack: 2, defense: 1, magic: 0};
+        Game.classes.Ranger.levelUp  = {maxHP: 14, maxMana: 8, maxStamina: 14, attack: 2, defense: 1, magic: 1};
         Game.classes.Paladin.levelUp = {maxHP: 18, maxMana: 10, maxStamina: 5, attack: 2, defense: 2, magic: 1};
         // Define skills
         Game.skills = {
@@ -69,6 +77,7 @@ var Game = {
             // Rogue skills
             "Poison Dart": { name: "Poison Dart", target: "enemy", type: "physical", power: 0.8, cost: 5, costType: "stamina", cooldown: 1, status: {type:"poison", damage:5, duration:3}, description: "Attack with a poisoned dart." },
             "Multi Shot": { name: "Multi Shot", target: "all-enemies", type: "physical", power: 0.8, cost: 15, costType: "stamina", cooldown: 3, description: "Shoot arrows at all enemies." },
+            "Snipe": { name: "Snipe", target: "enemy", type: "physical", power: 1.3, cost: 10, costType: "stamina", cooldown: 2, description: "Precise long-range attack." },
             "Backstab": { name: "Backstab", target: "enemy", type: "physical", power: 2.0, cost: 5, costType: "stamina", cooldown: 2, description: "High damage attack from shadows (if first attack)." }
         };
         // Skill tree progression (branching choices at certain levels)
@@ -83,6 +92,10 @@ var Game = {
             ],
             "Rogue": [
                 { level: 3, choices: ["Poison Dart", "Backstab"] },
+                { level: 5, choices: ["Multi Shot", "Invisibility"] }
+            ],
+            "Ranger": [
+                { level: 3, choices: ["Snipe", "Poison Dart"] },
                 { level: 5, choices: ["Multi Shot", "Invisibility"] }
             ],
             "Paladin": [
@@ -151,7 +164,14 @@ var Game = {
                 text: "You accept the quest. The old man tells you to seek the seer in the enchanted forest for guidance.",
                 choices: [
                     { text: "Travel to the forest", next: "forestEntrance" },
-                    { text: "Explore around village first", next: "villageExplore" }
+                    { text: "Explore around village first", next: "villageExplore" },
+                    { text: "Ask about the map", next: "mapTutorial" }
+                ]
+            },
+            mapTutorial: {
+                text: "The old man sketches a simple map of the surrounding lands for you.",
+                choices: [
+                    { text: "Thank him", next: "villageExplore" }
                 ]
             },
             ending_refusal: {
@@ -1316,12 +1336,44 @@ var Game = {
         }
         panel.style.display = 'block';
     },
+    showMap: function() {
+        Game.closePanels();
+        if(!Game.map) {
+            Game.map = [
+                ['🌲','🏠','🌲'],
+                ['🌲','⬜','🌲'],
+                ['🌲','🐉','🌲']
+            ];
+            Game.playerLocation = {x:1, y:1};
+        }
+        var panel = document.getElementById('mapPanel');
+        var content = document.getElementById('mapContent');
+        var html = '';
+        for(var y=0;y<Game.map.length;y++) {
+            for(var x=0;x<Game.map[y].length;x++) {
+                if(Game.playerLocation.x===x && Game.playerLocation.y===y) {
+                    html += '🙂';
+                } else {
+                    html += Game.map[y][x];
+                }
+            }
+            html += '<br>';
+        }
+        content.innerHTML = html;
+        panel.style.display = 'block';
+        if(!Game.mapQuestStarted) {
+            Game.addQuest('Explore the Map','Use the map to visit all locations.');
+            Game.mapQuestStarted = true;
+        }
+    },
     // Close all panels
     closePanels: function() {
         document.getElementById('inventoryPanel').style.display = 'none';
         document.getElementById('partyPanel').style.display = 'none';
         document.getElementById('skillsPanel').style.display = 'none';
         document.getElementById('journalPanel').style.display = 'none';
+        var mp = document.getElementById('mapPanel');
+        if(mp) mp.style.display = 'none';
     },
     // Animation: falling leaves in forest
     startForestAnimation: function() {

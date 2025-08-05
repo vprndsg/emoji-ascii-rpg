@@ -26,6 +26,7 @@
       <button onclick="Game.showParty()">Party</button>
       <button onclick="Game.showSkills()">Skills</button>
       <button onclick="Game.showJournal()">Journal</button>
+      <button onclick="Game.showMap()">Map</button>
     </div>
     <!-- Panels for Inventory, Party, Skills, Journal -->
     <div id="inventoryPanel" class="panel" style="display:none;">
@@ -47,6 +48,11 @@
       <button class="closeBtn" onclick="Game.closePanels()">Close</button>
       <h2>Journal</h2>
       <div id="journalContent"></div>
+    </div>
+    <div id="mapPanel" class="panel" style="display:none;">
+      <button class="closeBtn" onclick="Game.closePanels()">Close</button>
+      <h2>Map</h2>
+      <div id="mapContent"></div>
     </div>
   </div>
   <script src="game.js"></script>
