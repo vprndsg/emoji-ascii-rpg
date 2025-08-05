@@ -702,7 +702,8 @@ function openCraftMenu() {
         }
         html += '<p>' + recipe.name + ' (Requires: ' + reqText.join(', ') + ') ';
         if (canCraft) {
-            html += '<button onclick="craftItem(\\'' + recipe.name + '\\')">Craft</button>';
+            // Use single backslash to escape single quotes inside single-quoted string
+            html += '<button onclick="craftItem(\'' + recipe.name + '\')">Craft</button>';
         } else {
             html += '<button disabled>Craft</button>';
         }
@@ -778,7 +779,8 @@ function openPetMenu() {
         } else if (pet === currentPet) {
             html += ' (Active)';
         } else {
-            html += ' <button onclick="switchPet(\\'' + key + '\\')">Switch</button>';
+            // Escape single quotes correctly when building onclick attribute
+            html += ' <button onclick="switchPet(\'' + key + '\')">Switch</button>';
         }
         html += '</p>';
     }
@@ -797,21 +799,21 @@ function openSkillsMenu() {
     const crit = skills.find(s => s.id === "crit");
     const berserk = skills.find(s => s.id === "berserk");
     html += '<div>' + ps.name + ' - ' + ps.description + ' ';
-    html += (ps.unlocked ? '(Unlocked)' : (player.skillPoints>=ps.cost && (!ps.prereq || skills.find(s=>s.id===ps.prereq).unlocked) ? '<button onclick="unlockSkill(\\'power_strike\\')">Unlock</button>' : '(Locked)')) + '</div>';
+    html += (ps.unlocked ? '(Unlocked)' : (player.skillPoints>=ps.cost && (!ps.prereq || skills.find(s=>s.id===ps.prereq).unlocked) ? '<button onclick="unlockSkill(\'power_strike\')">Unlock</button>' : '(Locked)')) + '</div>';
     html += '<div class="indent1">' + crit.name + ' - ' + crit.description + ' ';
-    html += (crit.unlocked ? '(Unlocked)' : (player.skillPoints>=crit.cost && ps.unlocked ? '<button onclick="unlockSkill(\\'crit\\')">Unlock</button>' : '(Locked)')) + '</div>';
+    html += (crit.unlocked ? '(Unlocked)' : (player.skillPoints>=crit.cost && ps.unlocked ? '<button onclick="unlockSkill(\'crit\')">Unlock</button>' : '(Locked)')) + '</div>';
     html += '<div class="indent2">' + berserk.name + ' - ' + berserk.description + ' ';
-    html += (berserk.unlocked ? '(Unlocked)' : (player.skillPoints>=berserk.cost && crit.unlocked ? '<button onclick="unlockSkill(\\'berserk\\')">Unlock</button>' : '(Locked)')) + '</div>';
+    html += (berserk.unlocked ? '(Unlocked)' : (player.skillPoints>=berserk.cost && crit.unlocked ? '<button onclick="unlockSkill(\'berserk\')">Unlock</button>' : '(Locked)')) + '</div>';
     const fort = skills.find(s => s.id === "fortitude");
     const tough = skills.find(s => s.id === "tough");
     const gold = skills.find(s => s.id === "gold");
     html += '<h3>Defensive/Utility Skills</h3>';
     html += '<div>' + fort.name + ' - ' + fort.description + ' ';
-    html += (fort.unlocked ? '(Unlocked)' : (player.skillPoints>=fort.cost ? '<button onclick="unlockSkill(\\'fortitude\\')">Unlock</button>' : '(Locked)')) + '</div>';
+    html += (fort.unlocked ? '(Unlocked)' : (player.skillPoints>=fort.cost ? '<button onclick="unlockSkill(\'fortitude\')">Unlock</button>' : '(Locked)')) + '</div>';
     html += '<div class="indent1">' + tough.name + ' - ' + tough.description + ' ';
-    html += (tough.unlocked ? '(Unlocked)' : (player.skillPoints>=tough.cost && fort.unlocked ? '<button onclick="unlockSkill(\\'tough\\')">Unlock</button>' : '(Locked)')) + '</div>';
+    html += (tough.unlocked ? '(Unlocked)' : (player.skillPoints>=tough.cost && fort.unlocked ? '<button onclick="unlockSkill(\'tough\')">Unlock</button>' : '(Locked)')) + '</div>';
     html += '<div class="indent1">' + gold.name + ' - ' + gold.description + ' ';
-    html += (gold.unlocked ? '(Unlocked)' : (player.skillPoints>=gold.cost && fort.unlocked ? '<button onclick="unlockSkill(\\'gold\\')">Unlock</button>' : '(Locked)')) + '</div>';
+    html += (gold.unlocked ? '(Unlocked)' : (player.skillPoints>=gold.cost && fort.unlocked ? '<button onclick="unlockSkill(\'gold\')">Unlock</button>' : '(Locked)')) + '</div>';
     html += '<br><button onclick="closeMenu()">Close</button>';
     skillMenuEl.innerHTML = html;
     skillMenuEl.style.display = 'block';
