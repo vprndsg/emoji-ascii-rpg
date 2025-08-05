@@ -1,34 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emoji ASCII RPG</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASCII Emoji RPG</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="stats"></div>
-  <div id="envDesc"></div>
-  <div id="questTracker"></div>
-  <div id="monsterDisplay">
-    <div id="monsterEmoji"></div>
-    <div id="monsterHP"></div>
+  <div id="game">
+    <!-- Story/Narrative display -->
+    <div id="storyView">
+      <pre id="asciiArt"></pre>
+      <div id="textDisplay"></div>
+      <div id="choiceButtons"></div>
+    </div>
+    <!-- Combat display -->
+    <div id="combatView" style="display:none;">
+      <pre id="combatAscii"></pre>
+      <div id="combatLog"></div>
+      <div id="combatActions"></div>
+    </div>
+    <!-- Bottom Menu Bar -->
+    <div id="menuBar">
+      <button onclick="Game.showInventory()">Inventory</button>
+      <button onclick="Game.showParty()">Party</button>
+      <button onclick="Game.showSkills()">Skills</button>
+      <button onclick="Game.showJournal()">Journal</button>
+    </div>
+    <!-- Panels for Inventory, Party, Skills, Journal -->
+    <div id="inventoryPanel" class="panel" style="display:none;">
+      <button class="closeBtn" onclick="Game.closePanels()">Close</button>
+      <h2>Inventory</h2>
+      <div id="inventoryContent"></div>
+    </div>
+    <div id="partyPanel" class="panel" style="display:none;">
+      <button class="closeBtn" onclick="Game.closePanels()">Close</button>
+      <h2>Party</h2>
+      <div id="partyContent"></div>
+    </div>
+    <div id="skillsPanel" class="panel" style="display:none;">
+      <button class="closeBtn" onclick="Game.closePanels()">Close</button>
+      <h2>Skills</h2>
+      <div id="skillsContent"></div>
+    </div>
+    <div id="journalPanel" class="panel" style="display:none;">
+      <button class="closeBtn" onclick="Game.closePanels()">Close</button>
+      <h2>Journal</h2>
+      <div id="journalContent"></div>
+    </div>
   </div>
-  <div id="log"></div>
-  <div id="controls">
-    <button id="attackBtn">Attack</button>
-    <button id="travelBtn">Travel</button>
-    <button id="craftBtn">Crafting</button>
-    <button id="petBtn">Pet</button>
-    <button id="skillsBtn">Skills</button>
-    <button id="questsBtn">Quests</button>
-    <button id="continueBtn">Continue</button>
-  </div>
-  <div id="travelMenu" class="menu"></div>
-  <div id="craftMenu" class="menu"></div>
-  <div id="petMenu" class="menu"></div>
-  <div id="skillMenu" class="menu"></div>
-  <div id="questMenu" class="menu"></div>
-  <script src="script.js"></script>
+  <script src="game.js"></script>
 </body>
 </html>
