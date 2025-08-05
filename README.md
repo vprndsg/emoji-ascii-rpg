@@ -14,3 +14,20 @@ For GitHub Pages deployment, upload all files in this repository to a public Git
 - **style.css** – CSS stylesheet for game layout and appearance.
 - **script.js** – JavaScript file containing game logic, data, and interactive functionality.
 - **README.md** – Instructions for deployment and an overview of the project.
+
+
+## Features
+
+This update integrates numerous modular enhancements to create a richer, more interactive RPG experience:
+
+- **Branching dialogue trees** that let you choose your responses and shape the story.
+- **ASCII cutscenes** for dramatic moments like villain encounters and romantic scenes.
+- **Dynamic NPCs**, including shopkeepers, companions and faction leaders that react to your actions.
+- **Risk/Alert meter** UI to indicate when danger levels rise.
+- **Skill trees** for each class with level‑based unlocks and a class selection screen at the start.
+- **Procedural loot generation** with rarities and enchantments to keep equipment interesting.
+- **Turn‑based combat** with a multi‑character party and enemy initiative.
+- **Quests with alternate outcomes**, so your choices have consequences.
+- **Environmental animations** like falling leaves and flickering fires to bring the ASCII world to life.
+
+These features combine to deliver a long, varied adventure while remaining playable on any modern browser.
