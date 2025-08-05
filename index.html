@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emoji ASCII RPG – Dopamine Idle</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Game Header: Title and Player Stats -->
+  <header>
+    <h1>⚔️ Emoji ASCII RPG</h1>
+    <div id="stats">
+      <!-- Player level and XP progress -->
+      <div id="level-display">LVL: 1 <span id="level-stars">⭐️☆☆☆☆</span></div>
+      <div id="xp-bar">XP: <span id="xp-progress">0%</span> [<span id="xp-bar-fill">░░░░░░░░░░</span>]</div>
+      <!-- Player health and mana (or energy) -->
+      <div id="resource-bars">
+        HP: <span id="hp-text">❤️❤️❤️❤️❤️</span>
+        Mana: <span id="mana-text">🔵🔵🔵🔵🔵</span>
+      </div>
+      <!-- Gold and next loot progress -->
+      <div id="gold-display">💰 Gold: <span id="gold-count">0</span></div>
+      <div id="loot-bar">🎁 Next Chest: <span id="loot-progress">0%</span> [<span id="loot-bar-fill">░░░░░░░░░░</span>]</div>
+    </div>
+  </header>
+
+  <!-- Main Game Area: ASCII battlefield and action log -->
+  <main>
+    <!-- ASCII "battlefield" showing the current monster and environment -->
+    <div id="battlefield">
+      <div id="environment">🌲 Era: Medieval Forest</div>
+      <pre id="ascii-scene">
+🐍  <span id="monster-emoji">🐍</span>  🕷️    <!-- Example row with monster in middle -->
+-------------
+Tap the <span id="monster-target">🐍</span> to attack!
+-------------
+      </pre>
+    </div>
+    <!-- Action log for feedback text (combos, loot drops, etc.) -->
+    <div id="log">
+      <!-- Latest events will be prepended here -->
+    </div>
+  </main>
+
+  <!-- UI for upgrades and time travel -->
+  <aside id="actions">
+    <button id="upgrade-weapon" disabled>Upgrade ⚔️ (cost 100)</button>
+    <button id="upgrade-armor" disabled>Upgrade 🛡️ (cost 100)</button>
+    <button id="time-travel" style="display:none;">⏳ Time Travel!</button>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>
