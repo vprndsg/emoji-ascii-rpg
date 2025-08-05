@@ -111,14 +111,17 @@ const quests = [
     { id: "defeat_goblin_king", zone: 0, description: "Defeat the Goblin King", targetMonster: "Goblin King", targetCount: 1, currentCount: 0, completed: false, active: false, reward: { xp: 50, gold: 50, unlockZone: 1 } },
     // zone2
     { id: "kill_trex", zone: 1, description: "Defeat 10 🦖 T-Rex in Prehistoric Jungle", targetMonster: "T-Rex", targetCount: 10, currentCount: 0, completed: false, active: false, reward: { xp: 100, gold: 0 } },
+    { id: "kill_raptors", zone: 1, description: "Defeat 5 🦖 Raptors in Prehistoric Jungle", targetMonster: "Raptor", targetCount: 5, currentCount: 0, completed: false, active: false, reward: { xp: 80, gold: 0 } },
     { id: "craft_armor", zone: 1, description: "Craft Dino Armor", targetItem: null, targetCount: 1, currentCount: 0, craftedItem: "Dino Armor", completed: false, active: false, reward: { xp: 30, gold: 0 } },
     { id: "defeat_dragon", zone: 1, description: "Defeat the Ancient Dragon", targetMonster: "Ancient Dragon", targetCount: 1, currentCount: 0, completed: false, active: false, reward: { xp: 100, gold: 50, unlockZone: 2, pet: "dragon" } },
     // zone3
     { id: "kill_robots", zone: 2, description: "Defeat 10 🤖 Robots in Cyberpunk City", targetMonster: "Robot", targetCount: 10, currentCount: 0, completed: false, active: false, reward: { xp: 150, gold: 0 } },
     { id: "build_robot_pet", zone: 2, description: "Build a Robot Pet (Collect 5 Scrap)", targetItem: "scrap", targetCount: 5, currentCount: 0, completed: false, active: false, reward: { xp: 50, gold: 0, pet: "robot" } },
+    { id: "craft_laser_sword", zone: 2, description: "Craft a Laser Sword", targetItem: null, targetCount: 1, currentCount: 0, craftedItem: "Laser Sword", completed: false, active: false, reward: { xp: 40, gold: 20 } },
     { id: "defeat_ai", zone: 2, description: "Defeat the AI Overlord", targetMonster: "AI Overlord", targetCount: 1, currentCount: 0, completed: false, active: false, reward: { xp: 200, gold: 100, unlockZone: 3 } },
     // zone4
     { id: "kill_sharks", zone: 3, description: "Defeat 10 🦈 Sharks in Ocean Kingdom", targetMonster: "Shark", targetCount: 10, currentCount: 0, completed: false, active: false, reward: { xp: 200, gold: 0 } },
+    { id: "kill_barracuda", zone: 3, description: "Defeat 5 🐟 Barracuda in Ocean Kingdom", targetMonster: "Barracuda", targetCount: 5, currentCount: 0, completed: false, active: false, reward: { xp: 180, gold: 0 } },
     { id: "forge_blade", zone: 3, description: "Forge the Chrono Blade", targetItem: null, targetCount: 1, currentCount: 0, completed: false, active: false, reward: { xp: 100, gold: 0 } },
     { id: "defeat_kraken", zone: 3, description: "Defeat the Kraken", targetMonster: "Kraken", targetCount: 1, currentCount: 0, completed: false, active: false, reward: { xp: 500, gold: 200 } }
 ];
