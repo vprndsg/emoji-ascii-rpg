@@ -48,6 +48,60 @@ const itemNames = {
     shell: "Shell 🐚"
 };
 
+// Zones definition for time travel and monster spawns
+// Each zone contains a name, description, whether it is unlocked,
+// an array of monsters, and a boss. Monsters and bosses have
+// statistics used in combat as well as loot drop chances.
+const zones = [
+    {
+        name: "Medieval Forest",
+        description: "A lush forest filled with mischievous goblins.",
+        unlocked: true,
+        monsters: [
+            { name: "Goblin", emoji: "🧌", maxHp: 20, attack: 4, xp: 10, gold: 5, drops: { wood: 0.5 } },
+            { name: "Goblin", emoji: "🧌", maxHp: 30, attack: 6, xp: 15, gold: 8, drops: { wood: 0.6 } }
+        ],
+        boss: { name: "Goblin King", emoji: "👹", maxHp: 80, attack: 8, xp: 50, gold: 50, drops: { wood: 1.0 } }
+    },
+    {
+        name: "Prehistoric Jungle",
+        description: "Dinosaurs roam this ancient land.",
+        unlocked: false,
+        monsters: [
+            { name: "T-Rex", emoji: "🦖", maxHp: 50, attack: 10, xp: 20, gold: 10, drops: { dna: 0.5 } },
+            { name: "Raptor", emoji: "🦖", maxHp: 35, attack: 8, xp: 18, gold: 8, drops: { dna: 0.4 } }
+        ],
+        boss: { name: "Ancient Dragon", emoji: "🐉", maxHp: 120, attack: 15, xp: 100, gold: 50, drops: { dna: 1.0 } }
+    },
+    {
+        name: "Cyberpunk City",
+        description: "A futuristic metropolis overrun by rogue robots.",
+        unlocked: false,
+        monsters: [
+            { name: "Robot", emoji: "🤖", maxHp: 60, attack: 12, xp: 30, gold: 15, drops: { scrap: 0.5 } },
+            { name: "Drone", emoji: "🤖", maxHp: 40, attack: 10, xp: 25, gold: 12, drops: { scrap: 0.4 } }
+        ],
+        boss: { name: "AI Overlord", emoji: "💻", maxHp: 150, attack: 20, xp: 150, gold: 50, drops: { scrap: 1.0 } }
+    },
+    {
+        name: "Ocean Kingdom",
+        description: "A watery realm inhabited by sharks and mythical beasts.",
+        unlocked: false,
+        monsters: [
+            { name: "Shark", emoji: "🦈", maxHp: 70, attack: 14, xp: 40, gold: 20, drops: { shell: 0.5 } },
+            { name: "Barracuda", emoji: "🐟", maxHp: 50, attack: 12, xp: 30, gold: 15, drops: { shell: 0.3 } }
+        ],
+        boss: { name: "Kraken", emoji: "🐙", maxHp: 200, attack: 25, xp: 200, gold: 100, drops: { shell: 1.0 } }
+    }
+];
+
+// Current zone index, current monster and other runtime flags
+// These variables are declared explicitly to avoid strict-mode errors.
+let currentZoneIndex = 0;
+let currentMonster = null;
+let monsterAttackTimeout = null;
+let gamePaused = false;
+
 // Quest definitions
 const quests = [
     // zone1
