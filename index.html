@@ -3,32 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ASCII Emoji RPG</title>
+  <title>Emoji ASCII RPG</title>
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="game">
-    <!-- Story/Narrative display -->
-    <div id="storyView">
-      <pre id="asciiArt"></pre>
-      <div id="textDisplay"></div>
-      <div id="choiceButtons"></div>
+    <!-- Scene / Story Display -->
+    <div id="storyView" class="scene-view">
+      <pre id="asciiArt" class="ascii-display"></pre>
+      <div id="textDisplay" class="text-display"></div>
+      <div id="choiceButtons" class="choice-buttons"></div>
     </div>
-    <!-- Combat display -->
-    <div id="combatView" style="display:none;">
-      <pre id="combatAscii"></pre>
-      <div id="combatLog"></div>
-      <div id="combatActions"></div>
+    <!-- Combat Display -->
+    <div id="combatView" class="scene-view" style="display:none;">
+      <pre id="combatAscii" class="ascii-display"></pre>
+      <!-- Party status bars during combat -->
+      <div id="partyStatus" class="party-status"></div>
+      <div id="combatLog" class="combat-log"></div>
+      <div id="combatActions" class="combat-actions"></div>
     </div>
-    <!-- Bottom Menu Bar -->
-    <div id="menuBar">
+    <!-- Fixed Bottom Menu Bar -->
+    <div id="menuBar" class="menu-bar">
       <button onclick="Game.showInventory()">Inventory</button>
       <button onclick="Game.showParty()">Party</button>
       <button onclick="Game.showSkills()">Skills</button>
       <button onclick="Game.showJournal()">Journal</button>
       <button onclick="Game.showMap()">Map</button>
     </div>
-    <!-- Panels for Inventory, Party, Skills, Journal -->
+    <!-- Panels for Inventory, Party, Skills, Journal, Map -->
     <div id="inventoryPanel" class="panel" style="display:none;">
       <button class="closeBtn" onclick="Game.closePanels()">Close</button>
       <h2>Inventory</h2>
@@ -54,9 +57,18 @@
       <h2>Map</h2>
       <div id="mapContent"></div>
     </div>
+    <!-- Risk/Alert Meter -->
     <div id="riskMeter"><div id="riskFill"></div></div>
+    <!-- Dialogue Overlay Box -->
     <div id="dialogue-box" style="display:none;"></div>
   </div>
+  <!-- Game Scripts -->
+  <script src="classes.js"></script>
+  <script src="skills.js"></script>
+  <script src="scenes.js"></script>
+  <script src="ui.js"></script>
+  <script src="dialogues.js"></script>
+  <script src="npcs.js"></script>
   <script src="game.js"></script>
 </body>
 </html>
