@@ -1486,5 +1486,168 @@ var Game = {
         }, 200);
     }
 };
+// Branching dialogue tree system
+const dialogues = {
+    start: {
+        text: "👴 Old Man: Hello, traveler. What brings you to these parts?",
+        options: [
+            { text: "I'm looking for adventure.", next: "adventure" },
+            { text: "Just passing by.", next: "passing" }
+        ]
+    },
+    adventure: {
+        text: "Old Man: Adventure, you say? I might have a quest for you... 💡",
+        options: [
+            { text: "Tell me more.", next: "quest_offer" },
+            { text: "No thanks.", next: "endDialogue" }
+        ]
+    },
+    passing: {
+        text: "Old Man: Safe travels then. Be on your guard out there. ⚠️",
+        options: [
+            { text: "(Continue on your way)", next: "endDialogue" }
+        ]
+    },
+    quest_offer: {
+        text: "Old Man: Rumor has it a dragon 🐉 dwells in the mountains. Interested?",
+        options: [
+            { text: "Yes, I'll hunt the dragon!", next: "acceptQuest" },
+            { text: "Sounds dangerous... not now.", next: "declineQuest" }
+        ]
+    },
+    acceptQuest: {
+        text: "Old Man: Brave soul! The village will sing of your heroism. 🎉",
+        options: [
+            { text: "(Begin quest 'Dragon Hunt')", next: "endDialogue" }
+        ]
+    },
+    declineQuest: {
+        text: "Old Man: I understand. Such a journey isn’t for everyone. 😔",
+        options: [
+            { text: "(Leave)", next: "endDialogue" }
+        ]
+    }
+};
+
+function startDialogue(nodeKey) {
+    const dialogBox = document.getElementById('dialogue-box');
+    const node = dialogues[nodeKey];
+    if (!dialogBox || !node) return;
+    dialogBox.innerHTML = `<p>${node.text}</p>`;
+    node.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.textContent = opt.text;
+        btn.style.margin = "0.5em";
+        btn.onclick = () => {
+            if (opt.next === 'endDialogue') {
+                dialogBox.style.display = 'none';
+            } else {
+                startDialogue(opt.next);
+            }
+        };
+        dialogBox.appendChild(btn);
+    });
+    dialogBox.style.display = 'block';
+}
+
+// ASCII cutscenes
+const villainArt = String.raw`(\-"""-/)
+//^\   /^\\      ** The Dark Lord Emerges! **
+;/ ^_ _^ \;     A chilling laugh echoes...
+|  \ Y /  |     "So, hero, you've finally arrived," 
+(,  >@<  ,)     snarls the Dark Lord 😈.
+ |   \_/   |    
+ | (\___/)_|     * The air crackles with dark energy * 
+  \ \/- -\/ /   
+   \`===´/    
+    '---'`;
+
+function playVillainCutscene() {
+    const screen = document.getElementById('asciiArt');
+    if (screen) {
+        screen.textContent = villainArt;
+        setTimeout(() => {
+            screen.textContent = '';
+        }, 5000);
+    }
+}
+
+const romanticArt = String.raw`
+   O      O         .-\"\"\"-.
+   |\\____/|        /       \     * Night sky full of stars *
+   |      |       :         :    You share a quiet moment ❤️ 
+   |  ♥   |        \       /     with your companion by the fire.
+  / \\    / \\        \`-...-' 
+`;
+
+function playRomanticCutscene() {
+    const screen = document.getElementById('asciiArt');
+    if (screen) {
+        screen.textContent = romanticArt;
+        screen.onclick = () => {
+            screen.onclick = null;
+            screen.textContent = '';
+        };
+    }
+}
+
+// Risk meter update
+function updateRiskMeter(percent) {
+    const fill = document.getElementById('riskFill');
+    if (!fill) return;
+    const level = Math.max(0, Math.min(100, percent));
+    fill.style.width = level + '%';
+    if (level < 40) {
+        fill.style.backgroundColor = 'limegreen';
+    } else if (level < 75) {
+        fill.style.backgroundColor = 'gold';
+    } else {
+        fill.style.backgroundColor = 'red';
+    }
+}
+
+// Simple NPC class
+class NPC {
+    constructor(name, role, options = {}) {
+        this.name = name;
+        this.role = role;
+        this.inventory = options.inventory || [];
+        this.dialogues = options.dialogues || {};
+        this.isCompanion = false;
+        this.allegiance = options.allegiance || null;
+    }
+    talk() {
+        if (this.dialogues.intro) {
+            startDialogue(this.dialogues.intro);
+        }
+    }
+    trade() {
+        if (this.role !== 'shopkeeper') return;
+        console.log('Shop inventory:', this.inventory);
+    }
+    recruitToParty() {
+        if (this.role === 'companion' && !this.isCompanion) {
+            this.isCompanion = true;
+            console.log(`${this.name} has joined your party!`);
+        }
+    }
+}
+
+// Example NPC instances
+const blacksmith = new NPC('Baldric', 'shopkeeper', {
+    inventory: [
+        { name: 'Iron Sword', price: 100, emoji: '🗡️' },
+        { name: 'Shield', price: 80, emoji: '🛡️' }
+    ],
+    dialogues: { intro: 'start' }
+});
+
+const ranger = new NPC('Elena', 'companion', {
+    dialogues: { intro: 'start' }
+});
+
 // Start the game when page is loaded
-window.onload = Game.init;
+window.onload = function() {
+    Game.init();
+    updateRiskMeter(0);
+};

@@ -87,3 +87,29 @@ body {
 .flicker {
   color: #6f6;
 }
+#dialogue-box {
+  position: absolute;
+  bottom: 10%;
+  left: 10%;
+  width: 80%;
+  background: black;
+  color: white;
+  padding: 1em;
+  border: 1px solid gray;
+  font-family: monospace;
+}
+#riskMeter {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  width: 120px;
+  height: 10px;
+  border: 1px solid #fff;
+  background: #333;
+}
+#riskFill {
+  width: 0%;
+  height: 100%;
+  background: limegreen;
+  transition: width 0.5s ease;
+}
