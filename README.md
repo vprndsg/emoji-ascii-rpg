@@ -30,4 +30,6 @@ This update integrates numerous modular enhancements to create a richer, more in
 - **Quests with alternate outcomes**, so your choices have consequences.
 - **Environmental animations** like falling leaves and flickering fires to bring the ASCII world to life.
 
+
+
 These features combine to deliver a long, varied adventure while remaining playable on any modern browser.
