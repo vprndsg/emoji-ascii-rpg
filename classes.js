@@ -22,13 +22,14 @@ Game.classes = {
         baseStats: { maxHP: 90, maxMana: 50, maxStamina: 30, attack: 9, defense: 5, magic: 5 },
         initialSkills: ["Slash", "Heal"]
     }
+};
 // Stat gains per level for each class (applied on level-up)
 Game.classes.Warrior.levelUp = { maxHP: 20, maxMana: 0, maxStamina: 10, attack: 3, defense: 2, magic: 0 };
 Game.classes.Mage.levelUp    = { maxHP: 10, maxMana: 20, maxStamina: 0, attack: 1, defense: 1, magic: 3 };
 Game.classes.Rogue.levelUp   = { maxHP: 15, maxMana: 5, maxStamina: 15, attack: 2, defense: 1, magic: 0 };
 Game.classes.Ranger.levelUp  = { maxHP: 14, maxMana: 8, maxStamina: 14, attack: 2, defense: 1, magic: 1 };
 Game.classes.Paladin.levelUp = { maxHP: 18, maxMana: 10, maxStamina: 5, attack: 2, defense: 2, magic: 1 };
-
+// Skill tree progression: at certain levels, offer branching skill choices for each class
 Game.skillTrees = {
     "Warrior": [
         { level: 3, choices: ["Power Strike", "Shield Block"] },
@@ -49,4 +50,4 @@ Game.skillTrees = {
     "Paladin": [
         { level: 3, choices: ["Holy Light", "Smite"] }
     ]
-};;
+};
