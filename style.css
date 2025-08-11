@@ -1,187 +1,37 @@
-/* Global styles and layout */
-* {
-  box-sizing: border-box;
-}
-body {
-  margin: 0;
-  padding: 0;
-  background: #000;
-  color: #fff;
-  font-family: sans-serif;
-  line-height: 1.5;
-}
-#game {
-  max-width: 800px;
-  margin: auto;
-  padding: 10px;
-  padding-bottom: 60px; /* space for bottom menu */
-  display: flex;
-  flex-direction: column;
-}
-#game .scene-view {
-  margin-bottom: 60px; /* ensure not obscured by menu */
-}
-.ascii-display {
-  background: #000;
-  color: #0f0;
-  font-family: monospace;
-  white-space: pre;
-  overflow-x: auto;
-  font-size: 14px;
-  line-height: 1.1;
-}
-.text-display {
-  margin: 10px 0;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  line-height: 1.4;
-}
-.choice-buttons button {
-  display: block;
-  width: 100%;
-  margin: 5px 0;
-  padding: 12px;
-  font-size: 18px;
-}
-.combat-log {
-  border: 1px solid #666;
-  padding: 5px;
-  margin-top: 5px;
-  max-height: 120px;
-  overflow-y: auto;
-  font-size: 14px;
-  background: rgba(255,255,255,0.05);
-}
-.combat-actions button {
-  margin: 5px;
-  padding: 10px 12px;
-  font-size: 16px;
-  cursor: pointer;
-}
-.menu-bar {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: #222;
-  text-align: center;
-  padding: 8px 0;
-  border-top: 1px solid #444;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  z-index: 50;
-}
-.menu-bar button {
-  margin: 5px 10px;
-  padding: 10px 15px;
-  font-size: 18px;
-  cursor: pointer;
-}
-#mapContent {
-  font-family: monospace;
-  font-size: 24px;
-  line-height: 1.2;
-  text-align: center;
-}
-.panel {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.95);
-  color: #fff;
-  overflow-y: auto;
-  padding: 20px;
-  z-index: 100;
-}
-.panel h2 {
-  text-align: center;
-  margin-top: 0;
-}
-.closeBtn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-.itemEntry {
-  margin-bottom: 8px;
-}
-.flicker {
-  color: #6f6;
-}
-#dialogue-box {
-  position: fixed;
-  bottom: 10%;
-  left: 10%;
-  width: 80%;
-  background: rgba(0,0,0,0.9);
-  color: #fff;
-  padding: 1em;
-  border: 1px solid #888;
-  border-radius: 5px;
-  z-index: 200;
-}
-#riskMeter {
-  position: fixed;
-  top: 5px;
-  right: 5px;
-  width: 120px;
-  height: 10px;
-  border: 1px solid #fff;
-  background: #333;
-  border-radius: 5px;
-  overflow: hidden;
-  z-index: 50;
-}
-#riskFill {
-  width: 0%;
-  height: 100%;
-  background: limegreen;
-  transition: width 0.5s ease;
-}
-/* Combat Party Status Bars */
-#partyStatus {
-  margin: 5px 0;
-}
-.charStatus {
-  margin-bottom: 8px;
-}
-.charStatus .charName {
-  font-weight: bold;
-  display: block;
-}
-.hpBar, .manaBar {
-  width: 100%;
-  background: #444;
-  border: 1px solid #666;
-  border-radius: 4px;
-  margin: 4px 0;
-  height: 8px;
-  overflow: hidden;
-}
-.hpFill {
-  display: block;
-  height: 100%;
-  background: #d22;
-  transition: width 0.3s ease;
-}
-.manaFill {
-  display: block;
-  height: 100%;
-  background: #26f;
-  transition: width 0.3s ease;
-}
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  #mapContent {
-    font-size: 18px;
-  }
-  #menuBar button {
-    margin: 5px;
-    flex: 1 1 auto;
-  }
+*{box-sizing:border-box}
+body{margin:0;background:#000;color:#fff;font-family:sans-serif;line-height:1.5}
+#game{max-width:850px;margin:auto;padding:10px 10px 70px;display:flex;flex-direction:column}
+.scene-view{margin-bottom:60px}
+.ascii-display{background:#000;color:#0f0;font-family:monospace;white-space:pre;overflow-x:auto;font-size:14px;line-height:1.1;border:1px solid #133;padding:8px;border-radius:6px}
+.text-display{margin:10px 0;white-space:pre-wrap}
+.choice-buttons button{display:block;width:100%;margin:6px 0;padding:12px;font-size:18px}
+
+.combat-log{border:1px solid #333;padding:8px;margin-top:8px;max-height:140px;overflow-y:auto;background:rgba(255,255,255,.05);border-radius:6px}
+.combat-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.combat-actions button{padding:10px 12px;font-size:16px;flex:1 1 calc(50% - 8px)}
+
+.menu-bar{position:fixed;bottom:0;left:0;width:100%;background:#181818;text-align:center;padding:8px;border-top:1px solid #333;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;z-index:50}
+.menu-bar button{padding:10px 14px;font-size:16px}
+
+.panel{position:fixed;inset:0;background:rgba(0,0,0,.95);color:#fff;overflow-y:auto;padding:20px;z-index:100}
+.panel h2{text-align:center;margin-top:0}
+.closeBtn{position:absolute;top:10px;right:10px;padding:6px 10px}
+
+#riskMeter{position:fixed;top:6px;right:6px;width:130px;height:10px;border:1px solid #555;background:#202020;border-radius:5px;overflow:hidden;z-index:60}
+#riskFill{width:0%;height:100%;background:limegreen;transition:width .4s ease}
+
+#partyStatus{margin-top:6px}
+.charStatus{margin-bottom:8px}
+.charName{font-weight:bold;display:block}
+.hpBar,.manaBar{width:100%;height:8px;background:#333;border:1px solid #555;border-radius:4px;overflow:hidden;margin:3px 0}
+.hpFill{height:100%;background:#d22;transition:width .3s}
+.manaFill{height:100%;background:#26f;transition:width .3s}
+
+#dialogue-box{position:fixed;left:50%;transform:translateX(-50%);bottom:12%;width:88%;max-width:780px;background:rgba(0,0,0,.95);border:1px solid #666;border-radius:8px;padding:14px;z-index:200}
+#dialogue-box p{margin:0 0 10px}
+#dialogue-box button{margin:4px 6px;padding:10px 12px}
+
+@media (max-width:600px){
+  .ascii-display{font-size:12px}
+  .menu-bar button{font-size:15px}
 }
