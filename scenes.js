@@ -4,7 +4,7 @@ Game.asciiArts = {
   village:
 `+--------+
 |  __    |      ____
-| |  |   |     /    \\
+| |  |   |     /    \
 | |__|   |    |      |
 |        |    | [__] |   A peaceful village.
 +--------+    |      |
@@ -23,17 +23,17 @@ Game.asciiArts = {
   dragon:
 `                 __====-_  _-====__
       _--^^^#####//      \\#####^^^--_
-   _-^##########// (    ) \\##########^-_
+   _-^##########// (    ) \\##########^_- 
   -############//  |\\^^/|  \\############-
  _/############//   (@::@)   \\############\\_
 /#############((     \\//     ))#############\\`
 };
 
 Game.villainArt = String.raw`(\-"""-/)
- //^\   /^\\     The Dark Lord Emerges
+ //^\   /^\     The Dark Lord Emerges
  ;/ ^_ _^ \;    "So, hero, you finally came" 😈`;
 Game.romanticArt = String.raw`O   O     * Stars shimmer *
-|\\_/|     A quiet night by the fire ❤️`;
+|\_/|     A quiet night by the fire ❤️`;
 
 Game.playVillainCutscene = function(){
   const el = document.getElementById('asciiArt');
