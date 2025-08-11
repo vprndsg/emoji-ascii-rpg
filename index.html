@@ -2,36 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Emoji ASCII RPG</title>
-  <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="game">
-    <!-- Scene / Story Display -->
     <div id="storyView" class="scene-view">
       <pre id="asciiArt" class="ascii-display"></pre>
       <div id="textDisplay" class="text-display"></div>
       <div id="choiceButtons" class="choice-buttons"></div>
     </div>
-    <!-- Combat Display -->
+
     <div id="combatView" class="scene-view" style="display:none;">
       <pre id="combatAscii" class="ascii-display"></pre>
-      <!-- Party status bars during combat -->
       <div id="partyStatus" class="party-status"></div>
       <div id="combatLog" class="combat-log"></div>
       <div id="combatActions" class="combat-actions"></div>
     </div>
-    <!-- Fixed Bottom Menu Bar -->
+
     <div id="menuBar" class="menu-bar">
       <button onclick="Game.showInventory()">Inventory</button>
       <button onclick="Game.showParty()">Party</button>
       <button onclick="Game.showSkills()">Skills</button>
       <button onclick="Game.showJournal()">Journal</button>
       <button onclick="Game.showMap()">Map</button>
+      <button onclick="Game.save()">Save</button>
+      <button onclick="Game.load()">Load</button>
     </div>
-    <!-- Panels for Inventory, Party, Skills, Journal, Map -->
+
     <div id="inventoryPanel" class="panel" style="display:none;">
       <button class="closeBtn" onclick="Game.closePanels()">Close</button>
       <h2>Inventory</h2>
@@ -57,12 +56,11 @@
       <h2>Map</h2>
       <div id="mapContent"></div>
     </div>
-    <!-- Risk/Alert Meter -->
+
     <div id="riskMeter"><div id="riskFill"></div></div>
-    <!-- Dialogue Overlay Box -->
     <div id="dialogue-box" style="display:none;"></div>
   </div>
-  <!-- Game Scripts -->
+
   <script src="classes.js"></script>
   <script src="skills.js"></script>
   <script src="scenes.js"></script>
